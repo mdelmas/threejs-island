@@ -9,7 +9,6 @@ import waterVertexShader from "../shaders/water/vertex.glsl?raw";
 import waterFragmentShader from "../shaders/water/fragment.glsl?raw";
 
 export default function Water() {
-  useStore((state) => console.log("state", state));
   const waterLevelInitial = useStore((state) => state.waterLevel);
   const waveSpeedInitial = useStore((state) => state.waveSpeed);
   const waveAmplitudeInitial = useStore((state) => state.waveAmplitude);

@@ -9,19 +9,24 @@ import { useStore } from "../stores/store";
 import islandVertexShader from "../shaders/island/vertex.glsl?raw";
 import islandFragmentShader from "../shaders/island/fragment.glsl?raw";
 import { useEffect, useMemo, useRef } from "react";
-console.log(islandFragmentShader, islandVertexShader);
+import { useFrame } from "@react-three/fiber";
 
 export default function Island() {
-  useStore((state) => console.log("state", state));
-
   const model = useGLTF("./models/landscape.glb");
   const mesh = model.nodes.island as Mesh;
 
-  const { sandBaseColor, grassBaseColor, underwaterBaseColor } = useControls({
-    sandBaseColor: { value: "#ffb600" },
-    grassBaseColor: { value: "#adff2f" },
-    underwaterBaseColor: { value: "#24d6b8" },
-  });
+  const waterLevel = useStore((state) => state.waterLevel);
+  const waveSpeed = useStore((state) => state.waveSpeed);
+  const waveAmplitude = useStore((state) => state.waveAmplitude);
+  const foamDepthInitial = useStore((state) => state.foamDepth);
+
+  const { sandBaseColor, grassBaseColor, underwaterBaseColor, foamDepth } =
+    useControls({
+      sandBaseColor: { value: "#ffb600" },
+      grassBaseColor: { value: "#adff2f" },
+      underwaterBaseColor: { value: "#24d6b8" },
+      foamDepth: { value: foamDepthInitial, min: 0, max: 0.2, step: 0.001 },
+    });
 
   const grassColor = useMemo(
     () => new THREE.Color(grassBaseColor),
@@ -31,8 +36,6 @@ export default function Island() {
     () => new THREE.Color(underwaterBaseColor),
     [underwaterBaseColor]
   );
-
-  const waterLevel = useStore((state) => state.waterLevel);
 
   const materialRef =
     // @ts-expect-error: Error with CustomShaderMaterial type, but needs to be typed otherwise error when accessing uniform
@@ -44,9 +47,25 @@ export default function Island() {
     materialRef.current.uniforms.uGrassColor.value = grassColor;
     materialRef.current.uniforms.uUnderwaterColor.value = underwaterColor;
     materialRef.current.uniforms.uWaterLevel.value = waterLevel;
+    materialRef.current.uniforms.uFoamDepth.value = foamDepth;
+    materialRef.current.uniforms.uWaveSpeed.value = waveSpeed;
+    materialRef.current.uniforms.uWaveAmplitude.value = waveAmplitude;
 
     console.log("updating uniforms", materialRef.current.uniforms);
-  }, [grassColor, underwaterColor, waterLevel]);
+  }, [
+    grassColor,
+    underwaterColor,
+    waterLevel,
+    foamDepth,
+    waveSpeed,
+    waveAmplitude,
+  ]);
+
+  useFrame(({ clock }) => {
+    if (!materialRef.current) return;
+
+    materialRef.current.uniforms.uTime.value = clock.getElapsedTime();
+  });
 
   return (
     <group>
@@ -60,9 +79,12 @@ export default function Island() {
           fragmentShader={islandFragmentShader}
           uniforms={{
             uTime: { value: 0 },
+            uWaveSpeed: { value: 0 },
+            uWaveAmplitude: { value: 0 },
+            uWaterLevel: { value: waterLevel },
             uGrassColor: { value: grassColor },
             uUnderwaterColor: { value: underwaterColor },
-            uWaterLevel: { value: waterLevel },
+            uFoamDepth: { value: foamDepth },
           }}
         />
       </mesh>

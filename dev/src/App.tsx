@@ -29,7 +29,7 @@ function Scene() {
       gl={{ antialias: true }}
       onCreated={({ scene }) => {
         //   scene.background = background;
-        scene.fog = new THREE.Fog("#ffffff", 40, 100);
+        scene.fog = new THREE.Fog("#ffffff", 40, 140);
       }}
     >
       <ambientLight intensity={1.5} castShadow />
