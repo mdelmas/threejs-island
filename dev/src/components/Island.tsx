@@ -12,8 +12,12 @@ import { useEffect, useMemo, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 
 export default function Island() {
-  const model = useGLTF("./models/landscape.glb");
-  const mesh = model.nodes.island as Mesh;
+  // const model = useGLTF("./models/landscape.glb");
+  // const mesh = model.nodes.island as Mesh;
+  const model = useGLTF("./models/landscapeSubdivisedDecimated.glb");
+  console.log(model);
+  const mesh = model.nodes.island001 as Mesh;
+  console.log(mesh);
 
   const waterLevel = useStore((state) => state.waterLevel);
   const waveSpeed = useStore((state) => state.waveSpeed);
@@ -70,7 +74,6 @@ export default function Island() {
   return (
     <group>
       <mesh geometry={mesh.geometry} receiveShadow scale={10}>
-        {/* <meshStandardMaterial color="greenyellow" /> */}
         <CustomShaderMaterial
           ref={materialRef}
           baseMaterial={THREE.MeshStandardMaterial}
