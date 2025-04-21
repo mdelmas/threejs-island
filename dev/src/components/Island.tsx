@@ -14,9 +14,9 @@ import { useFrame } from "@react-three/fiber";
 export default function Island() {
   // const model = useGLTF("./models/landscape.glb");
   // const mesh = model.nodes.island as Mesh;
-  const model = useGLTF("./models/landscapeSubdivisedDecimated.glb");
+  const model = useGLTF("./models/islandV2.glb");
   console.log(model);
-  const mesh = model.nodes.island001 as Mesh;
+  const mesh = model.nodes.island as Mesh;
   console.log(mesh);
 
   const waterLevel = useStore((state) => state.waterLevel);
@@ -41,9 +41,8 @@ export default function Island() {
     [underwaterBaseColor]
   );
 
-  const materialRef =
-    // @ts-expect-error: Error with CustomShaderMaterial type, but needs to be typed otherwise error when accessing uniform
-    useRef<CustomShaderMaterial>(null);
+  // @ts-expect-error: Error with CustomShaderMaterial type, but needs to be typed otherwise error when accessing uniform
+  const materialRef = useRef<CustomShaderMaterial>(null);
 
   useEffect(() => {
     if (!materialRef.current) return;

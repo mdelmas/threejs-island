@@ -1,14 +1,15 @@
 import "./App.css";
+
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import { OrbitControls } from "@react-three/drei";
-
 import { Perf } from "r3f-perf";
 
 import Island from "./components/Island";
 import Water from "./components/Water";
 import Fishes from "./components/Fishes";
 import PaperMaterial from "./materials/PaperMaterial";
+import WaterLines from "./components/WaterLines";
 
 function Scene() {
   return (
@@ -33,8 +34,10 @@ function Scene() {
         <OrbitControls />
 
         <Island />
-        <Water />
-        <Fishes />
+        {/* <Water /> */}
+        {/* <Fishes /> */}
+
+        <WaterLines />
 
         {/* <mesh>
           <sphereGeometry args={[10, 32, 32]} />

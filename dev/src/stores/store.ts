@@ -8,8 +8,8 @@ interface StoreState {
 }
 
 export const useStore = create<StoreState>(() => ({
-  waterLevel: 0.5,
+  waterLevel: 0,
   waveSpeed: 1.2,
-  waveAmplitude: 0.1,
+  waveAmplitude: 0.01,
   foamDepth: 0.05,
 }));
