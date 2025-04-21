@@ -76,7 +76,7 @@ export default function Island() {
       <mesh geometry={mesh.geometry} receiveShadow scale={10}>
         <CustomShaderMaterial
           ref={materialRef}
-          baseMaterial={THREE.MeshStandardMaterial}
+          baseMaterial={THREE.MeshToonMaterial}
           color={sandBaseColor}
           vertexShader={islandVertexShader}
           fragmentShader={islandFragmentShader}

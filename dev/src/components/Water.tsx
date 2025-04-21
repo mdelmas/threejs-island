@@ -62,7 +62,7 @@ export default function Water() {
 
   return (
     <mesh rotation-x={-Math.PI / 2} position={[0, waterLevel, 0]} receiveShadow>
-      <planeGeometry args={[256, 256]} />
+      <planeGeometry args={[512, 512]} />
       {/* <meshStandardMaterial color="paleturquoise" /> */}
       <CustomShaderMaterial
         ref={materialRef}
@@ -71,6 +71,7 @@ export default function Water() {
         fragmentShader={waterFragmentShader}
         color={coastColor}
         transparent
+        roughness={0}
         opacity={waterOpacity}
         uniforms={{
           uTime: { value: 0 },

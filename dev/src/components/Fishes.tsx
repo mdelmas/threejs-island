@@ -20,14 +20,14 @@ export default function Fishes() {
     [fishesBaseColor]
   );
 
-  const fishesLevel = waterLevel + 0.1;
+  const fishesLevel = waterLevel + 0.2;
   // const fishesLevel = getRandomBetween(0, waterLevel - waveAmplitude);
   const alphaMap = useLoader(TextureLoader, "./textures/fishesAlphaMap.png");
   console.log(alphaMap);
 
   return (
     <mesh rotation-x={-Math.PI / 2} position={[6, fishesLevel, 6]}>
-      <planeGeometry args={[10, 10]} />
+      <planeGeometry args={[2, 2]} />
       <meshStandardMaterial
         color={fishesColor}
         alphaMap={alphaMap}
