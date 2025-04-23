@@ -2,15 +2,8 @@ import "./App.css";
 
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
-import { OrbitControls } from "@react-three/drei";
-import { Perf } from "r3f-perf";
 
-import Island from "./components/Island";
-import Water from "./components/Water";
-import Fishes from "./components/Fishes";
-import PaperMaterial from "./materials/PaperMaterial";
-import WaterLines from "./components/WaterLines";
-import Lights from "./components/Lights";
+import Experience from "./components/Experience";
 
 function Scene() {
   return (
@@ -22,26 +15,14 @@ function Scene() {
           toneMapping: THREE.ACESFilmicToneMapping,
           outputColorSpace: THREE.SRGBColorSpace,
         }}
-        onCreated={({ scene }) => {
-          // scene.fog = new THREE.Fog("#defaff", 40, 140);
-          scene.background = new THREE.Color("#74e6ff");
-        }}
+        // onCreated={({ scene }) => {
+        //   // scene.fog = new THREE.Fog("#defaff", 40, 140);
+        //   scene.background = backgroundColor;
+        // }}
+        // linear
+        // flat
       >
-        <Perf position="top-left" />
-
-        <Lights />
-        <OrbitControls />
-
-        {/* <Island /> */}
-        {/* <Water /> */}
-        {/* <Fishes /> */}
-
-        <WaterLines />
-
-        {/* <mesh>
-          <sphereGeometry args={[10, 32, 32]} />
-          <PaperMaterial baseColor="red" />
-        </mesh> */}
+        <Experience />
       </Canvas>
     </>
   );

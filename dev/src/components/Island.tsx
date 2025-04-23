@@ -53,8 +53,6 @@ export default function Island() {
     materialRef.current.uniforms.uFoamDepth.value = foamDepth;
     materialRef.current.uniforms.uWaveSpeed.value = waveSpeed;
     materialRef.current.uniforms.uWaveAmplitude.value = waveAmplitude;
-
-    console.log("updating uniforms", materialRef.current.uniforms);
   }, [
     grassColor,
     underwaterColor,
@@ -91,10 +89,10 @@ export default function Island() {
         />
       </mesh>
 
-      <mesh rotation-x={-Math.PI / 2} position={[0, -0.01, 0]} receiveShadow>
+      {/* <mesh rotation-x={-Math.PI / 2} position={[0, -0.01, 0]} receiveShadow>
         <planeGeometry args={[256, 256]} />
         <meshStandardMaterial color={underwaterBaseColor} />
-      </mesh>
+      </mesh> */}
     </group>
   );
 }

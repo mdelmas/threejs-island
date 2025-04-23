@@ -23,7 +23,7 @@ void main() {
     discard;
   }
 
-  float ripple = terrainData + (uTime * waveSpeed);
+  float ripple = terrainData + (sin(uTime) * 0.5 + 0.4) * waveSpeed * 0.4;
   ripple = mod(ripple * frequency, 1.0);
   ripple -= 1.0 - terrainData;
 
