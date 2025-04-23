@@ -10,6 +10,7 @@ import Water from "./components/Water";
 import Fishes from "./components/Fishes";
 import PaperMaterial from "./materials/PaperMaterial";
 import WaterLines from "./components/WaterLines";
+import Lights from "./components/Lights";
 
 function Scene() {
   return (
@@ -19,21 +20,19 @@ function Scene() {
         gl={{
           antialias: true,
           toneMapping: THREE.ACESFilmicToneMapping,
-          // outputEncoding: THREE.sRGBEncoding,
+          outputColorSpace: THREE.SRGBColorSpace,
         }}
         onCreated={({ scene }) => {
-          scene.fog = new THREE.Fog("#defaff", 40, 140);
-          scene.background = new THREE.Color("#defaff");
+          // scene.fog = new THREE.Fog("#defaff", 40, 140);
+          scene.background = new THREE.Color("#74e6ff");
         }}
       >
         <Perf position="top-left" />
 
-        <ambientLight intensity={1.5} castShadow />
-        <directionalLight position={[5, 10, 5]} intensity={3} castShadow />
-
+        <Lights />
         <OrbitControls />
 
-        <Island />
+        {/* <Island /> */}
         {/* <Water /> */}
         {/* <Fishes /> */}
 

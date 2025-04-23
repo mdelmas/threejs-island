@@ -15,7 +15,7 @@
     "leva": "^0.10.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "three": "^0.175.0",
+    "three": "^0.159.0",
     "three-custom-shader-material": "^6.3.5",
     "zustand": "^5.0.3"
   },
