@@ -14,7 +14,7 @@ import { useFrame } from "@react-three/fiber";
 export default function Island() {
   // const model = useGLTF("./models/landscape.glb");
   // const mesh = model.nodes.island as Mesh;
-  const model = useGLTF("./models/islandV2.glb");
+  const model = useGLTF("/models/islandV2.glb");
   console.log(model);
   const mesh = model.nodes.island as Mesh;
   console.log(mesh);

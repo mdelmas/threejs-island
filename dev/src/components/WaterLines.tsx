@@ -11,13 +11,13 @@ import waterLinesVertexShader from "../shaders/waterLines/vertex.glsl?raw";
 export default function WaterLines() {
   const distanceMapBigIsland = useLoader(
     TextureLoader,
-    "./textures/distanceMap/bigIsland.png"
+    "/textures/distanceMap/bigIsland.png"
   );
   const distanceMapSmallIsland = useLoader(
     TextureLoader,
-    "./textures/distanceMap/smallIsland.png"
+    "/textures/distanceMap/smallIsland.png"
   );
-  const perlinNoise = useLoader(TextureLoader, "./textures/noise/perlin1.png");
+  const perlinNoise = useLoader(TextureLoader, "/textures/noise/perlin1.png");
 
   // @ts-expect-error: Error with CustomShaderMaterial type, but needs to be typed otherwise error when accessing uniform
   const materialRef = useRef<CustomShaderMaterial>(null);

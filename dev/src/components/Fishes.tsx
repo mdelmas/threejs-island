@@ -22,7 +22,7 @@ export default function Fishes() {
 
   const fishesLevel = waterLevel + 0.2;
   // const fishesLevel = getRandomBetween(0, waterLevel - waveAmplitude);
-  const alphaMap = useLoader(TextureLoader, "./textures/fishesAlphaMap.png");
+  const alphaMap = useLoader(TextureLoader, "/textures/fishesAlphaMap.png");
   console.log(alphaMap);
 
   return (
