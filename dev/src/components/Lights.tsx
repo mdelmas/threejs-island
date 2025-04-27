@@ -1,7 +1,6 @@
 import { useHelper } from "@react-three/drei";
 import { useRef } from "react";
 import * as THREE from "three";
-import { RectAreaLightHelper } from "three/addons/helpers/RectAreaLightHelper.js";
 
 export default function Lights({ debug = false }) {
   const directionalLight = useRef<THREE.Object3D>(null);
