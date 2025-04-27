@@ -1,9 +1,9 @@
 import "./App.css";
 
-import { Canvas } from "@react-three/fiber";
-import * as THREE from "three";
+// import { Canvas } from "@react-three/fiber";
+// import * as THREE from "three";
 
-import Experience from "./components/Experience";
+// import Experience from "./components/Experience";
 
 function Scene() {
   return (
