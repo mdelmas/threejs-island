@@ -70,6 +70,8 @@ export default function Island() {
   //   materialRef.current.uniforms.uTime.value = clock.getElapsedTime();
   // });
 
+  return <></>;
+
   // return (
   //   <group>
   //     <mesh geometry={mesh.geometry} receiveShadow scale={10}>
