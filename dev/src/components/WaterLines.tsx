@@ -33,21 +33,20 @@ export default function WaterLines() {
     waveColorIntensity,
     noiseStrength,
   } = useControls("wave shader", {
-    frequency: { value: 3.0, min: 0, max: 10, step: 0.5, label: "wave count" },
-    noiseFrequency: { value: 0.6, min: 0, max: 1, step: 0.05 },
-    treshold: { value: 0.1, min: 0, max: 1, step: 0.05 },
-    waveSpeed: { value: 0.1, min: 0, max: 1, step: 0.1 },
+    frequency: { value: 10.0, min: 0, max: 20, step: 0.5 },
+    noiseFrequency: { value: 0.3, min: 0, max: 1, step: 0.05 },
+    treshold: { value: 0, min: 0, max: 1, step: 0.05 },
+    waveSpeed: { value: 0.5, min: 0, max: 1, step: 0.1 },
     waveWidth: {
-      value: 2.0,
+      value: 10.0,
       min: 0,
       max: 10,
       step: 0.5,
-      label: "wave spacing",
     },
     oscillationAmplitude: { value: 3.0, min: 0, max: 10, step: 0.5 },
     oscillationFrequency: { value: 0.1, min: 0, max: 1, step: 0.1 },
     waveColorIntensity: { value: 8.0, min: 0, max: 15, step: 1 },
-    noiseStrength: { value: 1.0, min: 0, max: 4, step: 0.1 },
+    noiseStrength: { value: 2.0, min: 0, max: 4, step: 0.1 },
   });
 
   useEffect(() => {

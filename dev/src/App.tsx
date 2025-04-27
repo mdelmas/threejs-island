@@ -9,7 +9,7 @@ function Scene() {
   return (
     <>
       <Canvas
-        camera={{ position: [10, 8, 10], fov: 40 }}
+        camera={{ position: [18, 6, 18], fov: 50 }}
         gl={{
           antialias: true,
           toneMapping: THREE.ACESFilmicToneMapping,
