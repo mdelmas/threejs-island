@@ -8,7 +8,9 @@ import Experience from "./components/Experience";
 function Scene() {
   return (
     <>
-      <Canvas
+      <h1>hello</h1>
+      <img src="/textures/distanceMap.png" />
+      {/* <Canvas
         camera={{ position: [18, 6, 18], fov: 50 }}
         gl={{
           antialias: true,
@@ -23,7 +25,7 @@ function Scene() {
         // flat
       >
         <Experience />
-      </Canvas>
+      </Canvas> */}
     </>
   );
 }
