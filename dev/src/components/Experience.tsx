@@ -2,7 +2,7 @@ import { Perf } from "r3f-perf";
 import { OrbitControls } from "@react-three/drei";
 import { useControls } from "leva";
 
-// import Island from "./Island";
+import Island from "./Island";
 // import Water from "./Water";
 // import Fishes from "./Fishes";
 // import PaperMaterial from "./PaperMaterial";
@@ -85,7 +85,7 @@ export default function Experience() {
         rotateSpeed={rotateSpeed}
       />
 
-      {/* <Island /> */}
+      <Island />
       {/* <Water /> */}
       {/* <Fishes /> */}
 

@@ -14,7 +14,9 @@ import { useGLTF } from "@react-three/drei";
 export default function Island() {
   // const model = useGLTF("./models/landscape.glb");
   // const mesh = model.nodes.island as Mesh;
-  const model = useGLTF("/models/islandV2.glb");
+  console.log("in island");
+
+  const model = useGLTF("/models/islandv2.glb");
   console.log(model);
   // const mesh = model.nodes.island as Mesh;
   // console.log(mesh);
