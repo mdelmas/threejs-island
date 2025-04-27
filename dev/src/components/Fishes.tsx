@@ -1,6 +1,6 @@
 import { useControls } from "leva";
 import { useStore } from "../stores/store";
-import { getRandomBetween } from "../utils/utils";
+// import { getRandomBetween } from "../utils/utils";
 import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
 import * as THREE from "three";
@@ -8,7 +8,7 @@ import { useMemo } from "react";
 
 export default function Fishes() {
   const waterLevel = useStore((state) => state.waterLevel);
-  const waveAmplitude = useStore((state) => state.waveAmplitude);
+  // const waveAmplitude = useStore((state) => state.waveAmplitude);
 
   const { fishesBaseColor, fishesOpacity } = useControls({
     fishesBaseColor: { value: "#255c51" },

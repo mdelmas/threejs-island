@@ -3,9 +3,9 @@ import { OrbitControls } from "@react-three/drei";
 import { useControls } from "leva";
 
 import Island from "./Island";
-import Water from "./Water";
-import Fishes from "./Fishes";
-import PaperMaterial from "./PaperMaterial";
+// import Water from "./Water";
+// import Fishes from "./Fishes";
+// import PaperMaterial from "./PaperMaterial";
 import WaterLines from "./WaterLines";
 import Lights from "./Lights";
 import { useEffect, useRef } from "react";
