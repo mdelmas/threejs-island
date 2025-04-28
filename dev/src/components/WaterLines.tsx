@@ -32,7 +32,7 @@ export default function WaterLines() {
     oscillationFrequency,
     waveColorIntensity,
     noiseStrength,
-  } = useControls("wave shader", {
+  } = useControls("water lines shader", {
     frequency: { value: 10.0, min: 0, max: 20, step: 0.5 },
     noiseFrequency: { value: 0.3, min: 0, max: 1, step: 0.05 },
     treshold: { value: 0, min: 0, max: 1, step: 0.05 },

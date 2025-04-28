@@ -21,7 +21,7 @@ export default function Water() {
     waveAmplitude,
     textureSize,
     farBaseColor,
-  } = useControls({
+  } = useControls("water shader", {
     coastColor: { value: "#00fccd" },
     waterLevel: { value: waterLevelInitial, min: 0, max: 1, step: 0.01 },
     waterOpacity: { value: 0.6, min: 0, max: 1, step: 0.01 },

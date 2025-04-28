@@ -1,18 +1,22 @@
 import { Perf } from "r3f-perf";
 import { OrbitControls } from "@react-three/drei";
 import { useControls } from "leva";
+import { useEffect, useRef } from "react";
 
 import Island from "./Island";
-// import Water from "./Water";
+import Tree from "./Tree";
+import Water from "./Water";
 // import Fishes from "./Fishes";
 // import PaperMaterial from "./PaperMaterial";
 import WaterLines from "./WaterLines";
 import Lights from "./Lights";
-import { useEffect, useRef } from "react";
 
 export default function Experience() {
-  const { backgroundColor } = useControls({
-    backgroundColor: { value: "#74e6ff" },
+  const { debug, backgroundColor, fogNear, fogFar } = useControls("general scene", {
+    debug: false,
+    backgroundColor: { value: "#b3f1ff" },
+    fogNear: { value: 75, min: 0, max: 300, step: 1 },
+    fogFar: { value: 200, min: 0, max: 300, step: 1 },
   });
 
   const {
@@ -29,7 +33,7 @@ export default function Experience() {
     maxDistance: { value: 80, min: 0, max: 200, step: 1 },
     minPolarAngle: { value: 0, min: 0, max: Math.PI, step: Math.PI / 12 },
     maxPolarAngle: {
-      value: Math.PI / 2 - Math.PI / 12,
+      value: Math.PI / 2 - 0.01,
       min: 0,
       max: Math.PI,
       step: Math.PI / 12,
@@ -63,10 +67,10 @@ export default function Experience() {
 
   return (
     <>
+      {/* CANVAS SETUP */}
       <color attach="background" args={[backgroundColor]} />
-      <Perf position="top-left" />
-
-      <Lights debug={false} />
+      <fog attach="fog" args={[backgroundColor, fogNear, fogFar]} />
+      <Lights debug={debug} />
       <OrbitControls
         ref={controlsRef}
         target={[-6, 0, 0]} // offset camera on the left
@@ -84,14 +88,16 @@ export default function Experience() {
         dampingFactor={dampingFactor}
         rotateSpeed={rotateSpeed}
       />
-
+      {/* DEBUG */}
+      { debug && <axesHelper args={[10]} /> /* x: red, y: green, z: blue */ }
+      <Perf position="top-left" />
+      {/* ELEMENTS */}
       <Island />
+      <Tree />
       {/* <Water /> */}
       {/* <Fishes /> */}
-
+      <Water />
       <WaterLines />
-      {/* <Water /> */}
-
       {/* <mesh>
             <sphereGeometry args={[10, 32, 32]} />
             <PaperMaterial baseColor="red" />

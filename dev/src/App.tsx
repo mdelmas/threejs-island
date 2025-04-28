@@ -15,10 +15,6 @@ function Scene() {
           toneMapping: THREE.ACESFilmicToneMapping,
           outputColorSpace: THREE.SRGBColorSpace,
         }}
-        // onCreated={({ scene }) => {
-        //   // scene.fog = new THREE.Fog("#defaff", 40, 140);
-        //   scene.background = backgroundColor;
-        // }}
         // linear
         // flat
       >

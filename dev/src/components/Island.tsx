@@ -3,23 +3,18 @@ import { Mesh } from "three";
 import { useGLTF } from "@react-three/drei";
 import CustomShaderMaterial from "three-custom-shader-material";
 import { useControls } from "leva";
+import { useEffect, useMemo, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 
 import { useStore } from "../stores/store";
 
 import islandVertexShader from "../shaders/island/vertex.glsl?raw";
 import islandFragmentShader from "../shaders/island/fragment.glsl?raw";
-import { useEffect, useMemo, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
 
 export default function Island() {
-  // const model = useGLTF("./models/landscape.glb");
-  // const mesh = model.nodes.island as Mesh;
-  console.log("in island");
-
-  const model = useGLTF("/models/islandv2.glb");
-  console.log(model);
-  const mesh = model.nodes.island as Mesh;
-  console.log(mesh);
+  const model = useGLTF("/models/threeIslands.glb");
+  const meshes = [model.nodes.island1, model.nodes.island2, model.nodes.island3]
+  console.log(meshes)
 
   const waterLevel = useStore((state) => state.waterLevel);
   const waveSpeed = useStore((state) => state.waveSpeed);
@@ -27,9 +22,9 @@ export default function Island() {
   const foamDepthInitial = useStore((state) => state.foamDepth);
 
   const { sandBaseColor, grassBaseColor, underwaterBaseColor, foamDepth } =
-    useControls({
-      sandBaseColor: { value: "#ffb600" },
-      grassBaseColor: { value: "#adff2f" },
+    useControls("island shader",{
+      sandBaseColor: { value: "#ffe093" },
+      grassBaseColor: { value: "#a6e843" },
       underwaterBaseColor: { value: "#24d6b8" },
       foamDepth: { value: foamDepthInitial, min: 0, max: 0.2, step: 0.001 },
     });
@@ -46,6 +41,26 @@ export default function Island() {
   // @ts-expect-error: Error with CustomShaderMaterial type, but needs to be typed otherwise error when accessing uniform
   const materialRef = useRef<CustomShaderMaterial>(null);
 
+    // Créer le material une seule fois
+    const customMaterial = useMemo(() => (
+      <CustomShaderMaterial
+        ref={materialRef}
+        baseMaterial={THREE.MeshToonMaterial}
+        color={sandBaseColor}
+        vertexShader={islandVertexShader}
+        fragmentShader={islandFragmentShader}
+        uniforms={{
+          uTime: { value: 0 },
+          uWaveSpeed: { value: 0 },
+          uWaveAmplitude: { value: 0 },
+          uWaterLevel: { value: waterLevel },
+          uGrassColor: { value: grassColor },
+          uUnderwaterColor: { value: underwaterColor },
+          uFoamDepth: { value: foamDepth },
+        }}
+      />
+    ), [sandBaseColor, waterLevel,grassColor,underwaterColor, foamDepth]);
+  
   useEffect(() => {
     if (!materialRef.current) return;
 
@@ -70,26 +85,14 @@ export default function Island() {
     materialRef.current.uniforms.uTime.value = clock.getElapsedTime();
   });
 
+
   return (
-    <group>
-      <mesh geometry={mesh.geometry} receiveShadow scale={10}>
-        <CustomShaderMaterial
-          ref={materialRef}
-          baseMaterial={THREE.MeshToonMaterial}
-          color={sandBaseColor}
-          vertexShader={islandVertexShader}
-          fragmentShader={islandFragmentShader}
-          uniforms={{
-            uTime: { value: 0 },
-            uWaveSpeed: { value: 0 },
-            uWaveAmplitude: { value: 0 },
-            uWaterLevel: { value: waterLevel },
-            uGrassColor: { value: grassColor },
-            uUnderwaterColor: { value: underwaterColor },
-            uFoamDepth: { value: foamDepth },
-          }}
-        />
-      </mesh>
+    <group scale={10}>
+      { meshes.map(mesh => 
+        <mesh key={mesh.uuid} geometry={(mesh as Mesh).geometry} receiveShadow>
+          {customMaterial}
+        </mesh>
+      ) }
 
       {/* <mesh rotation-x={-Math.PI / 2} position={[0, -0.01, 0]} receiveShadow>
         <planeGeometry args={[256, 256]} />
