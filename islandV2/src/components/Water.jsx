@@ -2,12 +2,10 @@
 import { useGLTF, useTexture, Float } from '@react-three/drei'
 // import CustomShaderMaterial from "three-custom-shader-material";
 import { MeshReflectorMaterial } from '@react-three/drei';
+import { useControls } from 'leva';
 
 export default function Water() {
-  const model = useGLTF('./model/water/model.glb');
-  const bakedTexture = useTexture('./model/water/bake.jpg');
-  console.log(model, bakedTexture)
-  bakedTexture.flipY = false;
+  const { waterColor } = useControls({ waterColor: '#00d3f8'});
 
   return (
     <Float 
@@ -18,7 +16,7 @@ export default function Water() {
       <mesh rotation-x={-Math.PI / 2} receiveShadow>
         <planeGeometry args={[100, 100]} />
         <MeshReflectorMaterial
-          color="#33E4D0"
+          color={waterColor}
           roughness={0}
           resolution={1024}
         />
