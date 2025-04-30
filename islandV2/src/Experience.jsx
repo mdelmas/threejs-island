@@ -13,7 +13,7 @@ export default function Experience()
             target={[-0.4, 0, 0]} 
             // limit zoom in/out
             minDistance={1.5}
-            maxDistance={4}
+            maxDistance={6}
             // limit horizontal rotation
             minPolarAngle={Math.PI / 12}
             maxPolarAngle={Math.PI / 2 - 0.03} 
