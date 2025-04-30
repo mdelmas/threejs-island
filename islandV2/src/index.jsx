@@ -1,22 +1,22 @@
-import './style.css'
-import ReactDOM from 'react-dom/client'
-import { Canvas } from '@react-three/fiber'
-import { Leva } from 'leva'
+import "./style.css";
+import ReactDOM from "react-dom/client";
+import { Canvas } from "@react-three/fiber";
+import { Leva } from "leva";
 
-import Experience from './Experience.jsx'
+import Experience from "./Experience.jsx";
 
-const root = ReactDOM.createRoot(document.querySelector('#root'))
+const root = ReactDOM.createRoot(document.querySelector("#root"));
 
 root.render(
-    <>
-        <Leva hidden={false} />
-        <Canvas
-            camera={ {
-                fov: 50,
-                position: [ 1, 0.6, 2 ]
-            } }
-            >
-            <Experience />
-        </Canvas>
-    </>
-)
+  <>
+    <Leva hidden={true} />
+    <Canvas
+      camera={{
+        fov: 60,
+        position: [1, 0.6, 2],
+      }}
+    >
+      <Experience />
+    </Canvas>
+  </>
+);
