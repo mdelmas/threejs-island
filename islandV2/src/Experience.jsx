@@ -13,7 +13,7 @@ export default function Experience()
             target={[-0.4, 0, 0]} 
             // limit zoom in/out
             minDistance={1.5}
-            maxDistance={6}
+            maxDistance={5}
             // limit horizontal rotation
             minPolarAngle={Math.PI / 12}
             maxPolarAngle={Math.PI / 2 - 0.03} 
@@ -23,14 +23,8 @@ export default function Experience()
         />
 
         <color args={ [ skyColor ] } attach="background" />
-        {/* <ambientLight intensity={4} castShadow /> */}
         <directionalLight position={ [ 1, 2, 3 ] } intensity={ 4.5 } castShadow />
         <fog attach="fog" args={[skyColor, 20, 40]} />
-
-        {/* <mesh>
-            <sphereGeometry position={ [ 3, 6, 3 ] } />
-            <meshStandardMaterial color='red' />
-        </mesh> */}
 
         <Island />
         <Water />
