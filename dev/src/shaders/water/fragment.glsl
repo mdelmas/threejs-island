@@ -50,13 +50,13 @@ void main() {
     float textureSize = 100.0 - uTextureSize;
 
     // Generate noise for the base texture
-    float noiseBase = snoise(vUv * (textureSize * 2.8) + sin(uTime * 0.3));
-    noiseBase = noiseBase * 0.5 + 0.5;
-    vec3 colorBase = vec3(noiseBase);
+    // float noiseBase = snoise(vUv * (textureSize * 2.8) + sin(uTime * 0.3));
+    // noiseBase = noiseBase * 0.5 + 0.5;
+    // vec3 colorBase = vec3(noiseBase);
 
     // Calculate foam effect using smoothstep and thresholding
-    vec3 foam = smoothstep(0.08, 0.001, colorBase);
-    foam = step(0.5, foam);  // binary step to create foam effect
+    // vec3 foam = smoothstep(0.08, 0.001, colorBase);
+    // foam = step(0.5, foam);  // binary step to create foam effect
     
     // Generate additional noise for waves
     float noiseWaves = snoise(vUv * textureSize + sin(uTime * -0.1));
@@ -66,31 +66,31 @@ void main() {
     // Apply smoothstep for wave thresholding
     // Threshold for waves oscillates between 0.6 and 0.61
     float threshold = 0.6 + 0.01 * sin(uTime * 2.0); 
-    vec3 waveEffect = 1.0 - (smoothstep(threshold + 0.03, threshold + 0.032, colorWaves) + 
-                             smoothstep(threshold, threshold - 0.01, colorWaves));
+    vec3 waveEffect = smoothstep(threshold + 0.03, threshold + 0.032, colorWaves) + smoothstep(threshold, threshold - 0.01, colorWaves);
+//  + 
+//                              smoothstep(threshold, threshold - 0.01, colorWaves))
+    // // Binary step to increase the wave pattern thickness
+    // waveEffect = step(0.5, waveEffect);
 
-    // Binary step to increase the wave pattern thickness
-    waveEffect = step(0.5, waveEffect);
+    // // Combine wave and foam effects
+    // vec3 combinedEffect = min(waveEffect + foam, 1.0);
 
-    // Combine wave and foam effects
-    vec3 combinedEffect = min(waveEffect + foam, 1.0);
+    // // Applying a gradient based on distance
+    // float vignette = length(vUv - 0.5) * 1.5;
+    // vec3 baseEffect = smoothstep(0.1, 0.3, vec3(vignette));
+    // vec3 baseColor = mix(finalColor, uColorFar, baseEffect);
+    // combinedEffect = mix(combinedEffect, vec3(0.0), baseEffect);
 
-    // Applying a gradient based on distance
-    float vignette = length(vUv - 0.5) * 1.5;
-    vec3 baseEffect = smoothstep(0.1, 0.3, vec3(vignette));
-    vec3 baseColor = mix(finalColor, uColorFar, baseEffect);
-    combinedEffect = mix(combinedEffect, vec3(0.0), baseEffect);
-
-    // Sample foam to maintain constant alpha of 1.0
-    vec3 foamEffect = mix(foam, vec3(0.0), baseEffect);
+    // // Sample foam to maintain constant alpha of 1.0
+    // vec3 foamEffect = mix(foam, vec3(0.0), baseEffect);
     
-    // Set the final color
-    finalColor = (1.0 - combinedEffect) * baseColor + combinedEffect;
+    // // Set the final color
+    // finalColor = (1.0 - combinedEffect) * baseColor + combinedEffect;
     
-    // Managing the alpha based on the distance
-    alpha = mix(vec3(0.2), vec3(1.0), foamEffect);
-    alpha = mix(alpha, vec3(1.0), vignette + 0.5);
+    // // Managing the alpha based on the distance
+    // alpha = mix(vec3(0.2), vec3(1.0), foamEffect);
+    // alpha = mix(alpha, vec3(1.0), vignette + 0.5);
 
     // Output the final color
-    csm_FragColor = vec4(finalColor, alpha);
+    csm_FragColor = vec4(waveEffect, alpha);
 }

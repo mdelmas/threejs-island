@@ -11,14 +11,18 @@ import waterLinesVertexShader from "../shaders/waterLines/vertex.glsl?raw";
 export default function WaterLines() {
   const distanceMapBigIsland = useLoader(
     TextureLoader,
-    "/textures/distanceMap/bigIsland.png"
+    "/textures/distanceMap/threeIslandsDistanceMap.png"
   );
-  const distanceMapSmallIsland = useLoader(
-    TextureLoader,
-    "/textures/distanceMap/smallIsland.png"
-  );
+  // const distanceMapSmallIsland = useLoader(
+  //   TextureLoader,
+  //   "/textures/distanceMap/smallIsland.png"
+  // );
   const perlinNoise = useLoader(TextureLoader, "/textures/noise/perlin1.png");
-
+  perlinNoise.minFilter = THREE.LinearFilter;
+  perlinNoise.magFilter = THREE.LinearFilter;
+  perlinNoise.wrapS = THREE.RepeatWrapping;
+  perlinNoise.wrapT = THREE.RepeatWrapping;
+  
   // @ts-expect-error: Error with CustomShaderMaterial type, but needs to be typed otherwise error when accessing uniform
   const materialRef = useRef<CustomShaderMaterial>(null);
 
@@ -32,8 +36,9 @@ export default function WaterLines() {
     oscillationFrequency,
     waveColorIntensity,
     noiseStrength,
+    waterColor
   } = useControls("water lines shader", {
-    frequency: { value: 10.0, min: 0, max: 20, step: 0.5 },
+    frequency: { value: 0.2, min: 0, max: 2, step: 0.1 },
     noiseFrequency: { value: 0.3, min: 0, max: 1, step: 0.05 },
     treshold: { value: 0, min: 0, max: 1, step: 0.05 },
     waveSpeed: { value: 0.5, min: 0, max: 1, step: 0.1 },
@@ -47,6 +52,7 @@ export default function WaterLines() {
     oscillationFrequency: { value: 0.1, min: 0, max: 1, step: 0.1 },
     waveColorIntensity: { value: 8.0, min: 0, max: 15, step: 1 },
     noiseStrength: { value: 2.0, min: 0, max: 4, step: 0.1 },
+    waterColor: {value: '#46ddff'}
   });
 
   useEffect(() => {
@@ -80,9 +86,9 @@ export default function WaterLines() {
     materialRef.current.uniforms.uTime.value = clock.getElapsedTime();
   });
 
-  return (
-    <mesh rotation-x={-Math.PI / 2} rotation-z={Math.PI / 2} scale={40}>
-      <planeGeometry args={[1, 1]} />
+  return (<>
+    <mesh rotation-x={-Math.PI / 2} rotation-z={0} scale={1}>
+      <planeGeometry args={[60, 60, 1024,1024]} />
       <CustomShaderMaterial
         ref={materialRef}
         baseMaterial={THREE.MeshStandardMaterial}
@@ -91,7 +97,7 @@ export default function WaterLines() {
         uniforms={{
           uTime: { value: 0 },
           uDistanceMapBigIsland: { value: distanceMapBigIsland },
-          uDistanceMapSmallIsland: { value: distanceMapSmallIsland },
+          // uDistanceMapSmallIsland: { value: distanceMapSmallIsland },
           uPerlinNoise: { value: perlinNoise },
           uFrequency: { value: frequency },
           uNoiseFrequency: { value: noiseFrequency },
@@ -103,7 +109,15 @@ export default function WaterLines() {
           uWaveWidth: { value: waveWidth },
           uNoiseStrength: { value: noiseStrength },
         }}
-      />
+        transparent
+        opacity={0.5}
+        />
     </mesh>
-  );
+
+    {/* <mesh rotation-x={-Math.PI / 2} position={[0, waterLevel, 0]} receiveShadow> */}
+    <mesh rotation-x={-Math.PI / 2} position={[0, -0.02, 0]} receiveShadow>
+      <planeGeometry args={[512, 512]} />
+      <meshStandardMaterial color={waterColor} />
+    </mesh>
+  </>);
 }

@@ -96,7 +96,7 @@ export default function Experience() {
       <Tree />
       {/* <Water /> */}
       {/* <Fishes /> */}
-      <Water />
+      {/* <Water /> */}
       <WaterLines />
       {/* <mesh>
             <sphereGeometry args={[10, 32, 32]} />
