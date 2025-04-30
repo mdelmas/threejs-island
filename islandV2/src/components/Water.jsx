@@ -3,6 +3,7 @@ import { Float, MeshReflectorMaterial } from "@react-three/drei";
 import CustomShaderMaterial from "three-custom-shader-material";
 import { useControls } from "leva";
 import { useFrame, useLoader } from "@react-three/fiber";
+import { useRef } from "react";
 
 import waterFragmentShader from "../shaders/water/fragment.glsl?raw";
 import waterVertexShader from "../shaders/water/vertex.glsl?raw";
@@ -16,11 +17,13 @@ export default function Water() {
     TextureLoader,
     "/textures/islandDistanceMap.png"
   );
+  const perlinNoise = useLoader(TextureLoader, "/textures/perlinNoise.png");
 
-  // useFrame(({ clock }) => {
-  //   if (!materialRef.current) return;
-  //   materialRef.current.uniforms.uTime.value = clock.getElapsedTime();
-  // });
+  const materialRef = useRef();
+  useFrame(({ clock }) => {
+    if (!materialRef.current) return;
+    materialRef.current.uniforms.uTime.value = clock.getElapsedTime();
+  });
 
   return (
     <Float speed={5} rotationIntensity={0} floatingRange={[0, 0.013]}>
@@ -32,18 +35,20 @@ export default function Water() {
           resolution={1024}
         />
       </mesh>
-      {/* <mesh rotation-x={-Math.PI / 2} position-y={0.001}>
-        <planeGeometry args={[3, 3]} />
+      <mesh rotation-x={-Math.PI / 2} position-y={0.001}>
+        <planeGeometry args={[6, 6]} />
         <CustomShaderMaterial
+          ref={materialRef}
           baseMaterial={MeshStandardMaterial}
           vertexShader={waterVertexShader}
           fragmentShader={waterFragmentShader}
           uniforms={{
             uTime: { value: 0 },
             uDistanceMap: { value: distanceMap },
+            uPerlinNoise: { value: perlinNoise },
           }}
         />
-      </mesh> */}
+      </mesh>
     </Float>
   );
 }
