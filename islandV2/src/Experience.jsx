@@ -11,12 +11,13 @@ export default function Experience()
     return <>
         <OrbitControls 
             target={[-0.4, 0, 0]} 
+            enablePan={false}
             // limit zoom in/out
             minDistance={1.5}
             maxDistance={5}
             // limit horizontal rotation
             minPolarAngle={Math.PI / 12}
-            maxPolarAngle={Math.PI / 2 - 0.03} 
+            maxPolarAngle={Math.PI / 2 - 0.05} 
             // limit vertical rotation
             minAzimuthAngle={-Math.PI / 4 - Math.PI / 6} 
             maxAzimuthAngle={Math.PI / 4 + Math.PI / 6} 
