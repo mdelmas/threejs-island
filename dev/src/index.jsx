@@ -18,6 +18,7 @@ root.render(
         fov: 60,
         position: [1, 0.6, 2],
       }}
+      flat
     >
       <Suspense fallback={null}>
         <Experience />

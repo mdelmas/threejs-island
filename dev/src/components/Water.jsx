@@ -10,7 +10,7 @@ import waterVertexShader from "../shaders/water/vertex.glsl?raw";
 
 export default function Water() {
   const { waterColor } = useControls({
-    waterColor: "#00d3f8",
+    waterColor: "#77bbbd",
   });
 
   const distanceMap = useLoader(
